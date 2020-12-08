@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
+import './../fonts.css';
 import GoogleIcon from './GoogleIcon';
 
 const GoogleButton = ({ onClick }) => {

@@ -1,4 +1,5 @@
 src
-webpack.config.js
+webpack.*.js
 .babelrc
 .eslintrc.js
+.prettierrc
