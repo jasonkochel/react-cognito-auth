@@ -10,7 +10,7 @@ module.exports = {
           {
             loader: require.resolve('babel-loader'),
             options: {
-              plugins: [require.resolve('react-refresh/babel')],
+              plugins: [process.env.NODE_ENV == "development" && require.resolve('react-refresh/babel')].filter(Boolean),
             },
           },
         ],
