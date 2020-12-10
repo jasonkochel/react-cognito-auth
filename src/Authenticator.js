@@ -1,22 +1,14 @@
 import { Auth, Cache, Hub } from 'aws-amplify';
 import React, { useEffect, useState } from 'react';
-import { Alert, Col, Container, Row } from 'react-bootstrap';
 import ForgotPassword from './components/ForgotPassword';
 import ResetPassword from './components/ResetPassword';
 import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
 import Verification from './components/Verification';
+import './styles.css';
 
 const AuthenticatorCol = ({ children }) => (
-  <Col
-    xl={{ span: 6, offset: 3 }}
-    lg={{ span: 6, offset: 3 }}
-    md={{ span: 8, offset: 2 }}
-    sm={{ span: 10, offset: 1 }}
-    xs={12}
-  >
-    {children}
-  </Col>
+  <div className="container mx-auto lg:w-1/2 md:w-2/3 sm:w-full">{children}</div>
 );
 
 const Authenticator = ({ authenticated, onSignIn, socialProviders }) => {
@@ -101,16 +93,16 @@ const Authenticator = ({ authenticated, onSignIn, socialProviders }) => {
   };
 
   return (
-    <Container>
+    <div className="container mx-auto px-4 xl:max-w-screen-lg">
       {errorMessage && (
-        <Row style={{ marginTop: '3em' }}>
+        <div className="row mt-12">
           <AuthenticatorCol>
-            <Alert variant="danger">{errorMessage}</Alert>
+            <div className="alert-danger">{errorMessage}</div>
           </AuthenticatorCol>
-        </Row>
+        </div>
       )}
 
-      <Row style={{ marginTop: '3em' }}>
+      <div className="row mt-12">
         <AuthenticatorCol>
           {mode == 'signup' ? (
             <SignUp onSignUp={handleSignUp} onChangeMode={setMode} />
@@ -129,8 +121,8 @@ const Authenticator = ({ authenticated, onSignIn, socialProviders }) => {
             />
           )}
         </AuthenticatorCol>
-      </Row>
-    </Container>
+      </div>
+    </div>
   );
 };
 

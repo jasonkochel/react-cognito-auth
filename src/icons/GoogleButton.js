@@ -1,6 +1,4 @@
 import React from 'react';
-import { Button } from 'react-bootstrap';
-import './../fonts.css';
 import GoogleIcon from './GoogleIcon';
 
 const GoogleButton = ({ onClick }) => {
@@ -18,7 +16,9 @@ const GoogleButton = ({ onClick }) => {
       <div style={{ float: 'left' }}>
         <GoogleIcon />
       </div>
-      <Button style={buttonStyle}>Sign In with Google</Button>
+      <button type="button" className="btn btn-primary" style={buttonStyle}>
+        Sign In with Google
+      </button>
     </div>
   );
 };

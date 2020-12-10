@@ -1,5 +1,5 @@
+import clsx from 'clsx';
 import React from 'react';
-import { Button, Card, Col, Form, FormControl, FormGroup, Row } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import SocialLogin from './SocialLogin';
 
@@ -18,27 +18,28 @@ const SignIn = ({
   const handleSignIn = formData => onSignIn(formData);
 
   return (
-    <Card>
-      <Card.Body>
-        <Card.Title>Sign In</Card.Title>
-        <Form>
-          <FormGroup controlId="username">
-            <Form.Label>Email</Form.Label>
-            <FormControl
+    <div className="card">
+      <div className="card-body">
+        <h5 className="card-title">Sign In</h5>
+        <form>
+          <div className="mb-4">
+            <label htmlFor="username">Email</label>
+            <input
+              className={clsx('form-control', !!errors?.username && 'border-red-600')}
               name="username"
               type="text"
               ref={register({
                 required: 'Enter your email address',
               })}
-              isInvalid={!!errors?.username}
             />
-            <Form.Control.Feedback type="invalid">
-              {errors?.username?.message}
-            </Form.Control.Feedback>
-          </FormGroup>
-          <FormGroup controlId="password">
-            <Form.Label>Password</Form.Label>
-            <FormControl
+            {!!errors?.username && (
+              <div className="form-feedback-invalid">{errors?.username?.message}</div>
+            )}
+          </div>
+          <div className="mb-4">
+            <label htmlFor="password">Password</label>
+            <input
+              className={clsx('form-control', !!errors?.password && 'border-red-600')}
               name="password"
               type="password"
               ref={register({
@@ -48,35 +49,38 @@ const SignIn = ({
                   message: 'Password must be at least 8 characters',
                 },
               })}
-              isInvalid={!!errors?.password}
             />
-            <Form.Control.Feedback type="invalid">
-              {errors?.password?.message}
-            </Form.Control.Feedback>
-          </FormGroup>
-          <FormGroup>
-            <Button variant="success" block onClick={handleSubmit(handleSignIn)}>
+            {!!errors?.password && (
+              <div className="form-feedback-invalid">{errors?.password?.message}</div>
+            )}
+          </div>
+          <div className="mb-4">
+            <button
+              type="button"
+              className="btn btn-success w-full"
+              onClick={handleSubmit(handleSignIn)}
+            >
               Sign In
-            </Button>
-          </FormGroup>
+            </button>
+          </div>
           <SocialLogin
             providers={socialProviders}
             onGoogleSignIn={onGoogleSignIn}
             onFacebookSignIn={onFacebookSignIn}
             onAmazonSignIn={onAmazonSignIn}
           />
-        </Form>
+        </form>
         <hr className="m-1" />
-        <Row>
-          <Col sm={6}>
+        <div className="row">
+          <div className="col w-1/2">
             <a onClick={() => onChangeMode('forgot-password')}>Forgot Password?</a>
-          </Col>
-          <Col className="text-right" sm={6}>
+          </div>
+          <div className="col w-1/2 text-right">
             <a onClick={() => onChangeMode('signup')}>Sign Up</a>
-          </Col>
-        </Row>
-      </Card.Body>
-    </Card>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 

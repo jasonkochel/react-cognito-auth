@@ -1,5 +1,4 @@
 import React from 'react';
-import { FormGroup } from 'react-bootstrap';
 import GoogleButton from './../icons/GoogleButton';
 
 const SocialLogin = ({ providers = [], onGoogleSignIn }) => {
@@ -7,7 +6,7 @@ const SocialLogin = ({ providers = [], onGoogleSignIn }) => {
 
   return (
     <div>
-      <FormGroup className="text-center">or</FormGroup>
+      <div className="text-center mb-4">or</div>
       {providers.includes('Google') && <GoogleButton onClick={onGoogleSignIn} />}
     </div>
   );

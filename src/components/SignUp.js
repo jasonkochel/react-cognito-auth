@@ -1,5 +1,5 @@
+import clsx from 'clsx';
 import React from 'react';
-import { Button, Card, Col, Form, FormControl, FormGroup, Row } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 
 const SignUp = ({ onSignUp, onChangeMode }) => {
@@ -10,41 +10,44 @@ const SignUp = ({ onSignUp, onChangeMode }) => {
   const handleSignUp = formData => onSignUp(formData);
 
   return (
-    <Card>
-      <Card.Body>
-        <Card.Title>Sign Up</Card.Title>
-        <Form>
-          <FormGroup controlId="username">
-            <Form.Label>Email Address</Form.Label>
-            <FormControl
-              name="email"
-              placeholder="This will be your username"
+    <div className="card">
+      <div className="card-body">
+        <h5 className="card-title">Sign Up</h5>
+        <form>
+          <div className="mb-4">
+            <label htmlFor="email">Email Address</label>
+            <input
               type="text"
+              name="email"
+              className={clsx('form-control', !!errors?.email && 'border-red-600')}
+              placeholder="This will be your username"
               ref={register({
                 required: 'Enter your email address',
               })}
-              isInvalid={!!errors?.email}
             />
-            <Form.Control.Feedback type="invalid">{errors?.email?.message}</Form.Control.Feedback>
-          </FormGroup>
-          <FormGroup controlId="name">
-            <Form.Label>Name</Form.Label>
-            <FormControl
-              name="name"
-              placeholder="Enter your full name"
+            {!!errors?.email && (
+              <div className="form-feedback-invalid">{errors?.email?.message}</div>
+            )}
+          </div>
+          <div className="mb-4">
+            <label htmlForm="name">Name</label>
+            <input
               type="text"
+              name="name"
+              className={clsx('form-control', !!errors?.name && 'border-red-600')}
+              placeholder="Enter your full name"
               ref={register({
                 required: 'Required',
               })}
-              isInvalid={!!errors?.name}
             />
-            <Form.Control.Feedback type="invalid">{errors?.name?.message}</Form.Control.Feedback>
-          </FormGroup>
-          <FormGroup controlId="password">
-            <Form.Label>Password</Form.Label>
-            <FormControl
-              name="password"
+            {!!errors?.name && <div className="form-feedback-invalid">{errors?.name?.message}</div>}
+          </div>
+          <div className="mb-4">
+            <label htmlForm="password">Password</label>
+            <input
               type="password"
+              name="password"
+              className={clsx('form-control', !!errors?.password && 'border-red-600')}
               ref={register({
                 required: 'Password must be at least 8 characters',
                 minLength: {
@@ -52,26 +55,29 @@ const SignUp = ({ onSignUp, onChangeMode }) => {
                   message: 'Password must be at least 8 characters',
                 },
               })}
-              isInvalid={!!errors?.password}
             />
-            <Form.Control.Feedback type="invalid">
-              {errors?.password?.message}
-            </Form.Control.Feedback>
-          </FormGroup>
-          <FormGroup>
-            <Button variant="success" block onClick={handleSubmit(handleSignUp)}>
+            {!!errors?.password && (
+              <div className="form-feedback-invalid">{errors?.password?.message}</div>
+            )}
+          </div>
+          <div className="mb-4">
+            <button
+              type="button"
+              className="btn btn-success w-full"
+              onClick={handleSubmit(handleSignUp)}
+            >
               Sign Up
-            </Button>
-          </FormGroup>
-        </Form>
+            </button>
+          </div>
+        </form>
         <hr className="m-1" />
-        <Row>
-          <Col sm={6}>
+        <div className="row">
+          <div className="col w-1/2">
             <a onClick={() => onChangeMode('signin')}>Back to Sign In</a>
-          </Col>
-        </Row>
-      </Card.Body>
-    </Card>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 

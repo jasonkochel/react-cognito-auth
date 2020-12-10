@@ -1,0 +1,92 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
+
+.alert-danger {
+  @apply relative px-3 py-3 mb-4 border rounded bg-red-100 border-red-400 text-red-800;
+}
+
+.btn {
+  @apply inline-block align-middle text-center select-none border font-normal whitespace-nowrap rounded py-2 px-3 leading-normal no-underline;
+}
+
+.btn-primary {
+  @apply bg-blue-600 text-white hover:bg-blue-600;
+}
+
+.btn-success {
+  @apply text-white hover:bg-green-600;
+  background-color: #28a745;
+}
+
+.btn-success:hover {
+  background-color: #218838;
+}
+
+.card {
+  @apply relative flex flex-col min-w-0 rounded break-words border bg-white border-gray-300;
+}
+
+.card-body {
+  @apply flex-auto p-6;
+}
+
+.card-title {
+  @apply mb-3;
+}
+
+.form-control {
+  @apply block appearance-none w-full py-1 px-2 mb-1 text-base leading-normal bg-white text-gray-800 border rounded;
+}
+
+.form-feedback-invalid {
+  @apply mt-1 text-sm text-red-600;
+}
+
+a {
+  cursor: pointer;
+  @apply text-blue-600;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @apply mb-2 font-medium leading-tight;
+}
+
+h1 {
+  @apply text-4xl;
+}
+
+h2 {
+  @apply text-3xl;
+}
+
+h3 {
+  @apply text-2xl;
+}
+
+h4 {
+  @apply text-xl;
+}
+
+h5 {
+  @apply text-lg;
+}
+
+h6 {
+  @apply text-base;
+}
+
+.row {
+  @apply flex flex-wrap;
+}
+
+.col {
+  @apply relative flex-grow max-w-full flex-1;
+}
