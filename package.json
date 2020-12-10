@@ -7,6 +7,9 @@
     "url": "https://github.com/jasonkochel/react-cognito-auth/issues"
   },
   "homepage": "https://github.com/jasonkochel/react-cognito-auth#readme",
+  "files": [
+    "build"
+  ],
   "main": "./build/Authenticator.js",
   "license": "MIT",
   "repository": {
