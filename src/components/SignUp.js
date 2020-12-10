@@ -12,12 +12,13 @@ const SignUp = ({ onSignUp, onChangeMode }) => {
   return (
     <div className="card">
       <div className="card-body">
-        <h5 className="card-title">Sign Up</h5>
+        <h5 className="mb-3">Sign Up</h5>
         <form>
           <div className="mb-4">
             <label htmlFor="email">Email Address</label>
             <input
               type="text"
+              id="email"
               name="email"
               className={clsx('form-control', !!errors?.email && 'border-red-600')}
               placeholder="This will be your username"
@@ -33,6 +34,7 @@ const SignUp = ({ onSignUp, onChangeMode }) => {
             <label htmlForm="name">Name</label>
             <input
               type="text"
+              id="name"
               name="name"
               className={clsx('form-control', !!errors?.name && 'border-red-600')}
               placeholder="Enter your full name"
@@ -46,6 +48,7 @@ const SignUp = ({ onSignUp, onChangeMode }) => {
             <label htmlForm="password">Password</label>
             <input
               type="password"
+              id="password"
               name="password"
               className={clsx('form-control', !!errors?.password && 'border-red-600')}
               ref={register({

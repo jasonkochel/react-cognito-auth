@@ -1,6 +1,6 @@
 import { Cache } from 'aws-amplify';
+import clsx from 'clsx';
 import React, { useEffect } from 'react';
-import { Button, Card, Form, FormControl, FormGroup } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 
 const Verification = ({ onVerify }) => {
@@ -18,34 +18,45 @@ const Verification = ({ onVerify }) => {
   const handleVerify = formData => onVerify(formData);
 
   return (
-    <Card>
-      <Card.Body>
-        <Card.Title>Verify Your Account</Card.Title>
-        <Form>
-          <FormGroup controlId="username">
-            <Form.Label>Email</Form.Label>
-            <FormControl name="username" type="text" ref={register} />
-          </FormGroup>
-          <FormGroup controlId="code">
-            <Form.Label>Enter the code we emailed to you</Form.Label>
-            <FormControl
-              name="code"
+    <div className="card">
+      <div className="card-body">
+        <h5 className="mb-3">Verify Your Account</h5>
+        <form>
+          <div className="mb-4">
+            <label htmlFor="username">Email</label>
+            <input
               type="text"
+              id="username"
+              name="username"
+              className="form-control"
+              ref={register}
+            />
+          </div>
+          <div className="mb-4">
+            <label htmlFor="code">Enter the code we emailed to you</label>
+            <input
+              type="text"
+              id="code"
+              name="code"
+              className={clsx('form-control', !!errors?.code && 'border-red-600')}
               ref={register({
                 required: 'Required',
               })}
-              isInvalid={!!errors?.code}
             />
-            <Form.Control.Feedback type="invalid">{errors?.code?.message}</Form.Control.Feedback>
-          </FormGroup>
-          <FormGroup>
-            <Button variant="success" block onClick={handleSubmit(handleVerify)}>
+            {!!errors?.code && <div className="form-feedback-invalid">{errors?.code?.message}</div>}
+          </div>
+          <div className="mb-4">
+            <button
+              type="button"
+              className="btn btn-success w-full"
+              onClick={handleSubmit(handleVerify)}
+            >
               Confirm
-            </Button>
-          </FormGroup>
-        </Form>
-      </Card.Body>
-    </Card>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
   );
 };
 

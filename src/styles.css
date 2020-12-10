@@ -33,8 +33,8 @@
   @apply flex-auto p-6;
 }
 
-.card-title {
-  @apply mb-3;
+.col {
+  @apply relative flex-grow max-w-full flex-1;
 }
 
 .form-control {
@@ -43,6 +43,10 @@
 
 .form-feedback-invalid {
   @apply mt-1 text-sm text-red-600;
+}
+
+.row {
+  @apply flex flex-wrap;
 }
 
 a {
@@ -83,10 +87,6 @@ h6 {
   @apply text-base;
 }
 
-.row {
-  @apply flex flex-wrap;
-}
-
-.col {
-  @apply relative flex-grow max-w-full flex-1;
+label {
+  @apply inline-block mb-2;
 }

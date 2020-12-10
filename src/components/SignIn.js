@@ -20,14 +20,15 @@ const SignIn = ({
   return (
     <div className="card">
       <div className="card-body">
-        <h5 className="card-title">Sign In</h5>
+        <h5 className="mb-3">Sign In</h5>
         <form>
           <div className="mb-4">
             <label htmlFor="username">Email</label>
             <input
-              className={clsx('form-control', !!errors?.username && 'border-red-600')}
-              name="username"
               type="text"
+              id="username"
+              name="username"
+              className={clsx('form-control', !!errors?.username && 'border-red-600')}
               ref={register({
                 required: 'Enter your email address',
               })}
@@ -39,9 +40,10 @@ const SignIn = ({
           <div className="mb-4">
             <label htmlFor="password">Password</label>
             <input
-              className={clsx('form-control', !!errors?.password && 'border-red-600')}
-              name="password"
               type="password"
+              id="password"
+              name="password"
+              className={clsx('form-control', !!errors?.password && 'border-red-600')}
               ref={register({
                 required: 'Password must be at least 8 characters',
                 minLength: {

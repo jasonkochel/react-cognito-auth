@@ -1,5 +1,5 @@
+import clsx from 'clsx';
 import React from 'react';
-import { Button, Card, Col, Form, FormControl, FormGroup, Row } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 
 const ForgotPassword = ({ onForgotPassword, onChangeMode }) => {
@@ -10,39 +10,45 @@ const ForgotPassword = ({ onForgotPassword, onChangeMode }) => {
   const handleForgotPassword = formData => onForgotPassword(formData);
 
   return (
-    <Card>
-      <Card.Body>
-        <Card.Title>Reset Password</Card.Title>
-        <Card.Text className="pb-3">A security code will be sent to your email address.</Card.Text>
-        <Form>
-          <FormGroup controlId="username">
-            <FormControl
-              name="username"
+    <div className="card">
+      <div className="card-body">
+        <h5 className="mb-3">Reset Password</h5>
+        <p className="mb-4 pb-3">A security code will be sent to your email address.</p>
+        <form>
+          <div className="mb-4">
+            <label htmlFor="username">Email</label>
+            <input
               type="text"
+              id="username"
+              name="username"
               placeholder="Email address"
+              className={clsx('form-control', !!errors?.username && 'border-red-600')}
               ref={register({
                 required: 'Enter your email address',
               })}
-              isInvalid={!!errors?.username}
             />
-            <Form.Control.Feedback type="invalid">
-              {errors?.username?.message}
-            </Form.Control.Feedback>
-          </FormGroup>
-          <FormGroup>
-            <Button variant="success" block onClick={handleSubmit(handleForgotPassword)}>
+            {!!errors?.username && (
+              <div className="form-feedback-invalid">{errors?.username?.message}</div>
+            )}
+          </div>
+          <div className="mb-4">
+            <button
+              type="button"
+              className="btn btn-success w-full"
+              onClick={handleSubmit(handleForgotPassword)}
+            >
               Get Security Code
-            </Button>
-          </FormGroup>
-        </Form>
+            </button>
+          </div>
+        </form>
         <hr className="m-1" />
-        <Row>
-          <Col sm={6}>
+        <div className="row">
+          <div className="col w-1/2">
             <a onClick={() => onChangeMode('signin')}>Back to Sign In</a>
-          </Col>
-        </Row>
-      </Card.Body>
-    </Card>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 
