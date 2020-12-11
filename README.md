@@ -1,6 +1,8 @@
 # Purpose
 
-This component provides a UI for the authentication flow powered by AWS Amplify. It is an alternative to using Amplify's own `Authenticator` component or `withAuthenticator` HOC, or to creating your own UI. It implements the following screens and manages the transitions between them:
+This component provides a UI for the authentication flow powered by [AWS Amplify](https://docs.amplify.aws/lib/auth/getting-started/q/platform/js#authentication-with-amplify). It is an alternative to using [Amplify's own pre-built UI components](https://docs.amplify.aws/lib/auth/getting-started/q/platform/js#option-1-use-pre-built-ui-components) (the `Authenticator` component and `withAuthenticator` HOC), or to creating your own UI.
+
+It implements the following screens and manages the transitions between them:
 
 - Sign In
 - Sign Up
@@ -85,12 +87,12 @@ const handleSignOut = () => {
 
 ## Internals and Dependencies
 
-Peer dependencies are React and AWS Cognito.
+Peer dependencies are React and [aws-amplify/amplify-js](https://github.com/aws-amplify/amplify-js).
 
 The only internal dependencies are:
 
 - `react-hook-form` to control the forms of the authentication screens
 - `clsx` to compose classNames
-- `crypto-browserify` and `stream-browserify` are browser pollyfls required by Amplify, since Webpack no longer bundles the Node.js polyfills (see [here](https://webpack.js.org/blog/2020-10-10-webpack-5-release/#automatic-nodejs-polyfills-removed))
+- `crypto-browserify` and `stream-browserify` to provide the browser polyfills required by Amplify, since Webpack no longer bundles the Node.js polyfills (see [here](https://webpack.js.org/blog/2020-10-10-webpack-5-release/#automatic-nodejs-polyfills-removed))
 
 It does not rely on nor utilize a UI framework like Bootstrap or Material-UI. Styling is done via Tailwind CSS and already transformed into pure (minified, tree-shaken) CSS.
