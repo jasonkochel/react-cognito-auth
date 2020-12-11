@@ -1,6 +1,6 @@
 {
   "name": "@jasonkochel/react-cognito-auth",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "React component that implements the AWS Amplify authentication workflow",
   "author": "Jason Kochel",
   "bugs": {
