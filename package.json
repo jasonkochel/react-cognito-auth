@@ -23,7 +23,7 @@
   "peerDependencies": {
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
-    "aws-amplify": "^3.0.0"
+    "aws-amplify": "^3.3.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
