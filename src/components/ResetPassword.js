@@ -47,12 +47,13 @@ const ResetPassword = ({ onResetPassword, onChangeMode }) => {
               )}
             </div>
             <div className="mb-4">
-              <label htmlForm="newPassword">New Password</label>
+              <label htmlFor="newPassword">New Password</label>
               <input
                 type="password"
                 id="newPassword"
                 name="newPassword"
                 className={clsx('form-control', !!errors?.newPassword && 'border-red-600')}
+                placeholder="Create a password at least 8 characters long"
                 ref={register({
                   required: 'Password must be at least 8 characters',
                   minLength: {

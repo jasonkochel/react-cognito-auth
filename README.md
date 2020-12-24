@@ -15,16 +15,32 @@ It also supports social sign-in (Google only for now).
 
 Your own project must already be handling the configuration for AWS Amplify and making the call to `Amplify.configure()`.
 
+The component requires that you are using email-as-username semantics. It also has a hard-coded validation that the password be at least 8 characters.
+
+## Props
+
+The `Authenticator` component expects the following props:
+
+- `onSignIn` - callback function which will receive the AWS Cognito payload once a user successfully authenticates
+- `signupFields` (optional) - array of field definitions to prompt for when a user signs up for an account
+
+  - Do not include the "email" (username) or "password" fields in this array. They are hard-coded to be rendered as the first and last fields in the signup form.
+  - Typical standard Cognito field names are "name" and "phone_number"
+    - If this prop is not provided, the default is just the "name" field
+  - Other fields that may be defined in your Cognito schema must be prefixed with "custom:"
+
+- `socialProviders` (optional) - array of strings of social login providers to offer; currently only supports Google Auth (`['Google']`)
+
 ## Rendering the authentication screens
 
 In the component which should wrap the authentication screens, conditionally render either this `Authenticator` component or your own root component for logged-in users:
 
-```
+```javascript
 const [authState, setAuthState] = useState();
 
 /* event handlers and your own code here */
 
-// render...
+// render:
 
 if (!authState) return null;
 
@@ -34,6 +50,7 @@ return (
   ) : (
     <Authenticator
       onSignIn={handleSignIn}
+      signupFields={signupFields}   // if omitted, default is {email, name, password}
       socialProviders={['Google']}  // omit if not using
     />
   )}
@@ -42,10 +59,10 @@ return (
 
 ## Handling the authentication response
 
-The `onSignIn` prop is a callback which will receive the authentication payload from AWS Cognito. From this, you can extract the JWT and claims and store them in your local state:
+The `onSignIn` prop is a callback which will receive the authentication payload from AWS Cognito. From this, you can extract the JWT and claims and store them in your local state. For example, your implementation of onSignIn might look like:
 
-```
-const handleSignIn = useCallback(cognitoUser => {
+```javascript
+const onSignIn = cognitoUser => {
   const idToken = cognitoUser?.signInUserSession?.idToken;
 
   if (!idToken) return;
@@ -58,29 +75,29 @@ const handleSignIn = useCallback(cognitoUser => {
   };
 
   setAuthState({ authenticated: true, userInfo: user });
-}, []);
+};
 ```
 
 ## Detecting initial authentication state
 
 If your app supports persisting sign-in between sessions, detect the initial authentication state like so:
 
-```
+```javascript
 useEffect(() => {
   Auth.currentAuthenticatedUser()
-    .then(user => handleSignIn(user))
+    .then(user => onSignIn(user))
     .catch(() => setAuthState({ authenticated: false }));
 }, [handleSignIn]);
 ```
 
-This calls the Amplify `Auth.currentAuthenticatedUser()` function to detect if the user is already logged in. If so, your `handleSignIn()` function will be invoked with the Cognito payload.
+This calls the Amplify `Auth.currentAuthenticatedUser()` function to detect if the user is already logged in. If so, your `onSignIn()` function will be invoked with the Cognito payload.
 
 ## Sign Out
 
 This component does not handle signing out. Your own UI should own the Sign Out button. Trigger a sign out in Cognito like so:
 
-```
-const handleSignOut = () => {
+```javascript
+const onSignOut = () => {
   Auth.signOut().then(() => setAuthState({ authenticated: false }));
 };
 ```

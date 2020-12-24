@@ -20,6 +20,20 @@ const config = {
 
 Amplify.configure(config);
 
+const signupFields = [
+  {
+    name: 'name',
+    label: 'Name',
+    placeholder: 'Enter your full name',
+    required: true,
+  },
+  {
+    name: 'phone_number',
+    label: 'Phone Number',
+    required: true,
+  },
+];
+
 const socialProviders = ['Google'];
 
 function App() {
@@ -61,7 +75,11 @@ function App() {
           <button onClick={handleSignOut}>Sign Out</button>
         </div>
       ) : (
-        <Authenticator onSignIn={handleSignIn} socialProviders={socialProviders} />
+        <Authenticator
+          onSignIn={handleSignIn}
+          signupFields={signupFields}
+          socialProviders={socialProviders}
+        />
       )}
     </div>
   );

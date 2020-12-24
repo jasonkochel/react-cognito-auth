@@ -7,11 +7,25 @@ import SignUp from './components/SignUp';
 import Verification from './components/Verification';
 import './styles.css';
 
-const AuthenticatorCol = ({ children }) => (
-  <div className="container mx-auto lg:w-1/2 md:w-2/3 sm:w-full">{children}</div>
-);
+const defaultSignupFields = [
+  {
+    name: 'name',
+    label: 'Name',
+    placeholder: 'Enter your full name',
+    required: true,
+  },
+];
 
-const Authenticator = ({ authenticated, onSignIn, socialProviders }) => {
+const serializePhone = p =>
+  !!p
+    ? Array.from(p).reduce(
+        (acc, c) =>
+          ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'].includes(c) ? acc + c : acc,
+        '+1'
+      )
+    : '';
+
+const Authenticator = ({ onSignIn, signupFields = defaultSignupFields, socialProviders }) => {
   const [errorMessage, setErrorMessage] = useState();
   const [mode, setMode] = useState('signin');
 
@@ -49,14 +63,26 @@ const Authenticator = ({ authenticated, onSignIn, socialProviders }) => {
 
   const handleGoogleSignin = () => Auth.federatedSignIn({ provider: 'Google' });
 
-  const handleSignUp = ({ email, name, password }) => {
+  const handleSignUp = formData => {
+    let attributes = {};
+
+    if (signupFields) {
+      signupFields.forEach(f => {
+        if (f.name === 'phone_number') {
+          attributes[f.name] = serializePhone(formData[f.name]);
+        } else {
+          attributes[f.name] = formData[f.name];
+        }
+      });
+    }
+
     Auth.signUp({
-      username: email,
-      password,
-      attributes: { email, name },
+      username: formData.email,
+      password: formData.password,
+      attributes,
     })
       .then(() => {
-        redirectToVerification(email);
+        redirectToVerification(formData.email);
       })
       .catch(error => setErrorMessage(error.message));
   };
@@ -96,16 +122,16 @@ const Authenticator = ({ authenticated, onSignIn, socialProviders }) => {
     <div className="container mx-auto px-4 xl:max-w-screen-lg">
       {errorMessage && (
         <div className="row mt-12">
-          <AuthenticatorCol>
+          <div className="container mx-auto lg:w-1/2 md:w-2/3 sm:w-full">
             <div className="alert-danger">{errorMessage}</div>
-          </AuthenticatorCol>
+          </div>
         </div>
       )}
 
       <div className="row mt-12">
-        <AuthenticatorCol>
+        <div className="container mx-auto lg:w-1/2 md:w-2/3 sm:w-full">
           {mode == 'signup' ? (
-            <SignUp onSignUp={handleSignUp} onChangeMode={setMode} />
+            <SignUp onSignUp={handleSignUp} onChangeMode={setMode} fields={signupFields} />
           ) : mode == 'verification' ? (
             <Verification onVerify={handleVerify} onChangeMode={setMode} />
           ) : mode == 'forgot-password' ? (
@@ -120,7 +146,7 @@ const Authenticator = ({ authenticated, onSignIn, socialProviders }) => {
               onChangeMode={setMode}
             />
           )}
-        </AuthenticatorCol>
+        </div>
       </div>
     </div>
   );
