@@ -35,12 +35,13 @@ const Verification = ({ onVerify }) => {
           <div className="mb-4">
             <label htmlFor="code">Enter the code we emailed to you</label>
             <input
-              type="text"
+              type="number"
               id="code"
               name="code"
               className={clsx('form-control', !!errors?.code && 'border-red-600')}
               ref={register({
                 required: 'Required',
+                pattern: { value: /^\d{6}$/, message: 'Enter 6 digits with no other characters' },
               })}
             />
             {!!errors?.code && <div className="form-feedback-invalid">{errors?.code?.message}</div>}

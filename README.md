@@ -87,7 +87,7 @@ useEffect(() => {
   Auth.currentAuthenticatedUser()
     .then(user => onSignIn(user))
     .catch(() => setAuthState({ authenticated: false }));
-}, [handleSignIn]);
+}, [onSignIn]);
 ```
 
 This calls the Amplify `Auth.currentAuthenticatedUser()` function to detect if the user is already logged in. If so, your `onSignIn()` function will be invoked with the Cognito payload.
