@@ -1,6 +1,6 @@
 {
   "name": "@jasonkochel/react-cognito-auth",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "React component that implements the AWS Amplify authentication workflow",
   "author": "Jason Kochel",
   "bugs": {
@@ -18,11 +18,12 @@
   },
   "scripts": {
     "build": "webpack --env production --progress --profile --color",
-    "start": "webpack serve --env development"
+    "start": "webpack serve --env development",
+    "pub": "npm version patch --force && npm publish"
   },
   "peerDependencies": {
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0",
+    "react": "16 - 17",
+    "react-dom": "16 - 17",
     "aws-amplify": "^3.3.0"
   },
   "devDependencies": {
